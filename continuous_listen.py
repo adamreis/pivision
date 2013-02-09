@@ -11,7 +11,7 @@ import numpy as np  # just for doing a standard deviation for audio level checks
 import urllib2
 import json
 
-def listen():
+def listen(lang="en-US"):
   e = speex.Encoder()
   e.initialize(speex.SPEEX_MODEID_WB)
   d = speex.Decoder()
@@ -36,7 +36,7 @@ def listen():
   print "Listening. Recording will start when some sound is heard."  
 
   threshold = 1600  # Adjust this to be slightly above the noise level of your recordings.
-  nquit = 20 # number of silent frames before terminating the program
+  nquit = 30 # number of silent frames before terminating the program
   nover = 0
   keepgoing = True
   spxlist=[]  # list of the encoded speex packets/frames
@@ -73,13 +73,16 @@ def listen():
   print 'Sending to google.'  
 
   # see http://sebastian.germes.in/blog/2011/09/googles-speech-api/ for a good description of the url
-  url = 'https://www.google.com/speech-api/v1/recognize?xjerr=1&pfilter=1&client=chromium&lang=en-US&maxresults=4'
+  url = 'https://www.google.com/speech-api/v1/recognize?xjerr=1&pfilter=1&client=chromium&lang=' + lang + '&maxresults=4'
   header = {'Content-Type' : 'audio/x-speex-with-header-byte; rate=16000'}
   req = urllib2.Request(url, fullspx, header)
   try:
     data = urllib2.urlopen(req)
   except urllib2.HTTPError:
     pass
-  hypos = json.loads(data.read())['hypotheses']
+  if not type(data) is str:
+	hypos = json.loads(data.read())['hypotheses']
+  else:
+	hypos = "-1"
   return hypos
   #yes!
