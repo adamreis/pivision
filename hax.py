@@ -30,7 +30,6 @@ class PyApp(gtk.Window):
         self.add(vbox)
 
         self.set_tooltip_text("window widget")
-        btn1.set_tooltip_text("button widget lol")
         self.connect("destroy", gtk.main_quit)
 
         self.show_all()

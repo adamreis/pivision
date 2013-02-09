@@ -15,8 +15,3 @@ def translate(to_translate, to_langage="auto", langage="auto"):
 	result = page[page.find(before_trans)+len(before_trans):]
 	result = result.split("<")[0]
 	return result
-
-if __name__ == '__main__':
-	to_translate = 'Hola como estas?'
-	print("%s >> %s" % (to_translate, translate(to_translate)))
-	print("%s >> %s" % (to_translate, translate(to_translate, 'fr')))
