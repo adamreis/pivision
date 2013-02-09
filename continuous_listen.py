@@ -33,7 +33,8 @@ stream = p.open(format = FORMAT,
 
 print "Listening. Recording will start when some sound is heard."
 
-threshold = 200  # Adjust this to be slightly above the noise level of your recordings.
+while True:
+threshold = 1600  # Adjust this to be slightly above the noise level of your recordings.
 nquit = 40 # number of silent frames before terminating the program
 nover = 0
 keepgoing = True
